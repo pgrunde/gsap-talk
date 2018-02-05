@@ -1,0 +1,124 @@
+body, html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#tao {
+  transform-origin: 50% 50%;
+}
+
+.logo-container {
+  height: 70rem;
+  display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.logo-container > object {
+  overflow: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  fill: black;
+  width: 90%;
+}
+
+.about {
+  margin-top: 3rem;
+  display: block;
+  max-width: 40rem;
+  position: relative;
+}
+
+.about > p {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-family: helvetica;
+  text-align: justify;
+  color: rgb(128, 128, 128);
+  text-size-adjust: 100%;
+}
+
+.scrollpromptcontainer {
+  display: flex;
+  align-items: center;
+  height: 10rem; 
+}
+
+.scrollprompt {
+  position: relative;
+}
+
+.justafter {
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 10rem;
+}
+
+.boxset1, .boxset2, .boxset3, .boxset4, .boxset5 {
+  display: flex;
+  justify-content: space-between;
+	position: relative;
+  width: 100%;
+  height: 10rem;
+  line-height: 10rem;
+  font-family: "Courier New";
+  letter-spacing: 1rem;
+}
+
+#boxleft1, #boxright1 {
+  width: 20rem;
+  background-color:black;
+}
+
+#boxleft2, #boxright2 {
+  width: 20rem;
+  background-color:red;
+}
+
+#boxleft3, #boxright3 {
+  width: 20rem;
+  background-color:#fff695;
+}
+
+#boxleft4, #boxright4 {
+  width: 20rem;
+  background-color:#ff95a8;
+}
+
+#boxleft5, #boxright5 {
+  width: 20rem;
+  background-color:#95baff;
+}
+
+.balls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 40rem;
+  width: 100%;
+  background-color:#ffebb4;
+}
+
+.balls > svg {
+  height: 50%;
+}
+
+.balls > img {
+  transform: scale(0.57);
+  position: absolute;
+  visibility: hidden;
+}
+
+#bigball {
+  position: relative;
+}
+

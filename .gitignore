@@ -1,0 +1,7 @@
+/node_modules/
+/dist/app.min.js
+/dist/app.js
+/log
+/tmp
+.env
+.DS_Store

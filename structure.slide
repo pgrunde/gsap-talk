@@ -1,0 +1,75 @@
+GSAP
+Animation Toolkit
+
+* History
+
+.link https://en.wikipedia.org/wiki/History_of_animation Humans have depicted motion for a while
+
+Traditional animation can be 12-24 frames per second.
+
+Early Disney animators would make key frames roughly 6-10 frames a second depicting the highlights of an animated sequence.
+
+Junior animators (read: warm bodies) would draw the frames inbetween the two key frames using lightboards.
+
+These between frames were referred to as *tween* frames.
+
+* GSAP
+
+.link https://greensock.com/jump-start-js Jump Start Slide Show
+.link https://greensock.com/get-started-js#basics Getting Started: Basics
+.link https://ihatetomatoes.net/wp-content/uploads/2016/07/GreenSock-Cheatsheet-4.pdf Cheat Sheet
+
+
+* Tween syntax
+
+The 'Lite' and 'Max' distinguish a size vs. feature set tradeoff. Anything TweenLite can do, TweenMax can as well.
+
+.code -edit -numbers slidecontent/tweensyntax.js
+
+* Easy Skeezy Ease into Eases
+
+The ease attribute determines which function to use when changing the attribute from one value to another.
+
+.code -edit -numbers slidecontent/tweensyntax.js HLxxx
+
+.link https://greensock.com/ease-visualizer Ease Visualizer
+
+* Some Properties Of Note
+
+- `paused`: boolean, creates the animation paused
+- `transformOrigin`: string, e.g. "left top", can take px, percent
+- `rotation`: string, e.g. "-170_short", or "-=30_cw" for degrees (ugh, radians plz)
+- `autoAlpha`: int, like opacity but turns on hidden visibility at 0 for performance
+- `className`: string, morph between properties two classes, "+=" to append it
+
+A full set can be found on the [[https://greensock.com/docs/TweenMax][TweenMax documentation]]
+
+* Tween Methods
+
+.code slidecontent/tweenmethods.js
+
+* Delay issues
+
+.code -edit slidecontent/delaymatching.js
+
+If I want to create a sequence of tweens, this will work, but we have to do math on the `delay` property every time. 
+
+Worse, changing the duration of a single tween has zero effect on the tweens intended to fire after it, forcing you to change all subsequent tween delays.
+
+* TimelineMax
+
+.code -edit slidecontent/timeline.js
+Timelines solve delay counting by introducing consecutive tweens in a cohesive animation.
+
+Timelines themselves can take properties, for example this timeline starts after a second delay and will repeat forever.
+
+* Position Parameter
+
+.code -edit slidecontent/basicposition.js
+Timelines expose a powerful feature called [[https://greensock.com/position-parameter][positioning]]. Positioning enables you to move animations relative to other actions of the timeline.
+
+* Plugins & Tools
+
+GSAP offers plenty of [[https://greensock.com/plugins/?product_id=4921][plugins]] for additional functionality. Bezier movement, morph any svg to another svg, physics simulation, scroll position animation, draw svg line over time; plenty of options to do complicated motions wth DOM elements.
+
+They also provide a developer tool [[https://greensock.com/gsdevtools][GSDevTools]] which provides a playground to manipulate timelines.
