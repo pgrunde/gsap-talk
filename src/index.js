@@ -8,7 +8,7 @@ window.onbeforeunload = function () {
 }
 
 $(document).ready(function() {
-  'use strict'
+  'use strict';
 
   // SETUP
   // this defines which selector engine TweenMax will use to select DOM elements
@@ -28,17 +28,17 @@ $(document).ready(function() {
   // construct initial page layout no matter the client size
   setJustAfter();
   // every 120ms check the mouse position and perform any animations related
-  setInterval(mouseMoved, 120)
+  setInterval(mouseMoved, 120);
 
   // set ball animation and call with bound reference to a timeline
   var tl_bigball = buildBall();
   $("#bigball").on("click", function() {
     TweenMax.to("#boat", 2, {autoAlpha: 1, ease: Sine.easeIn});
   });
-  setInterval(balls.bind(this, tl_bigball), 500)
+  setInterval(balls.bind(this, tl_bigball), 500);
 
   // start
-  setTimeout(beginAnimation, 500);
+  setTimeout(beginAnimation, 500)
 });
 
 
@@ -55,7 +55,7 @@ function beginAnimation() {
 
   TweenMax.from(about, 1, {delay: 1, opacity: 0, left: "100px", ease: Elastic.easeOut});
 
-  var tl_scrollPrompt = new TimelineMax({delay:3, repeat:-1})
+  var tl_scrollPrompt = new TimelineMax({delay:3, repeat:-1});
   tl_scrollPrompt
     .to(scrollPrompt, 0.75, {scaleX:3, scaleY:3, top:"20px", opacity: 1})
     .to(scrollPrompt, 0.75, {scaleX:1, scaleY:1, top:"20px", opacity: 0})
@@ -100,8 +100,8 @@ function handleBoxes(mouseX, mouseY) {
 
     // We need document positioning!
     // getCoords appends doctop and docleft to the bounding client rect
-    var boxLeftCoords = getCoords(boxLeft)
-    var boxRightCoords = getCoords(boxRight)
+    var boxLeftCoords = getCoords(boxLeft);
+    var boxRightCoords = getCoords(boxRight);
 
     if (boxRightCoords.doctop < mouseY && boxRightCoords.doctop+boxRightCoords.height > mouseY) {
       var boxWidth = 200;
@@ -147,7 +147,7 @@ function buildBall() {
     .to("#bigball", 1.25, {scaleX: 1, scaleY: 1, ease: Sine.easeOut})
     .to("#bigball", 1.25, {left: "0rem", fill: "#f0d078", ease: Sine.easeIn}, "-=1.25")
     .to("#bigball", 1.25, {bottom: "0rem", fill: "#f0d078", ease: Sine.easeOut}, "-=1.25")
-    .to("#balls", 1.25, {backgroundColor: "#ffebb4", ease: Sine.easeInOut}, "-=1.25") // returned
+    .to("#balls", 1.25, {backgroundColor: "#ffebb4", ease: Sine.easeInOut}, "-=1.25"); // returned
   return tl_bigball
 }
 
