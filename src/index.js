@@ -4,8 +4,43 @@ require('gsap')
 var $ = require('jquery')
 
 window.onbeforeunload = function () {
-    // window.scrollTo(0, 0);
+  window.scrollTo(0, 0);
 }
+
+$(document).ready(function() {
+  'use strict'
+
+  // SETUP
+  // this defines which selector engine TweenMax will use to select DOM elements
+  TweenMax.selector = $;
+
+  // we'll be tracking mouse location on the document, so let's set some defaults
+	document.pointerX = document.documentElement.clientWidth / 2;
+	document.pointerY = document.documentElement.clientHeight / 2;
+	document.lastPointerX = document.pointerX;
+	document.lastPointerY = document.pointerY;
+	document.userScrolling = false;
+
+  // track mouse movement
+  document.onmousemove = handleMouseMove;
+	window.onscroll = function() { document.userScrolling = true; };
+
+  // construct initial page layout no matter the client size
+  setJustAfter();
+  // every 120ms check the mouse position and perform any animations related
+  setInterval(mouseMoved, 120)
+
+  // set ball animation and call with bound reference to a timeline
+  var tl_bigball = buildBall();
+  $("#bigball").on("click", function() {
+    TweenMax.to("#boat", 2, {autoAlpha: 1, ease: Sine.easeIn});
+  });
+  setInterval(balls.bind(this, tl_bigball), 500)
+
+  // start
+  setTimeout(beginAnimation, 500);
+});
+
 
 // beginAnimation starts the opening sequence at the top of the page
 function beginAnimation() {
@@ -51,7 +86,7 @@ function mouseMoved() {
 	}
 }
 
-// handleBoxes moves 
+// handleBoxes moves boxes to surround the mouse
 function handleBoxes(mouseX, mouseY) {
   for (var i=1;i<6;i++){
     var boxLeft = document.getElementById("boxleft"+i);
@@ -81,6 +116,7 @@ function handleBoxes(mouseX, mouseY) {
   }
 }
 
+// balls starts the bigball animation after the div id=balls becomes visible
 function balls(tl_bigball) {
   var ballsCoords = getCoords(document.getElementById("balls"));
   // If I can see 200 pixels of the div
@@ -89,6 +125,7 @@ function balls(tl_bigball) {
   }
 }
 
+// buildBall defines the ball movement animation
 function buildBall() {
   var tl_bigball = new TimelineMax({paused: true, repeat: -1})
   tl_bigball
@@ -114,32 +151,6 @@ function buildBall() {
   return tl_bigball
 }
 
-$(document).ready(function() {
-  'use strict'
-
-  // setup
-  TweenMax.selector = $;
-	document.pointerX = document.documentElement.clientWidth / 2;
-	document.pointerY = document.documentElement.clientHeight / 2;
-	document.lastPointerX = document.pointerX;
-	document.lastPointerY = document.pointerY;
-	document.userScrolling = false;
-  document.onmousemove = handleMouseMove;
-	window.onscroll = function() { document.userScrolling = true; };
-
-  setJustAfter();
-  setInterval(mouseMoved, 120)
-
-  var tl_bigball = buildBall();
-  $("#bigball").on("click", function() {
-    TweenMax.to("#boat", 2, {autoAlpha: 1, ease: Sine.easeIn});
-  });
-  setInterval(balls.bind(this, tl_bigball), 500)
-
-  // start
-  setTimeout(beginAnimation, 500);
-});
-
 // http://javascript.info/coordinates
 // get document coordinates of an element
 function getCoords(elem) {
@@ -152,6 +163,7 @@ function getCoords(elem) {
 }
 
 // https://stackoverflow.com/questions/7790725/javascript-track-mouse-position
+// tracks mouse movement on the document
 function handleMouseMove(event) {
   var dot, eventDoc, doc, body, pageX, pageY;
 
