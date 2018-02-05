@@ -13,8 +13,9 @@ Junior animators (read: warm bodies) would draw the frames inbetween the two key
 
 These between frames were referred to as *tween* frames.
 
-* GSAP
+* GSAP - Starter Links
 
+.link https://greensock.com/ Main Site
 .link https://greensock.com/jump-start-js Jump Start Slide Show
 .link https://greensock.com/get-started-js#basics Getting Started: Basics
 .link https://ihatetomatoes.net/wp-content/uploads/2016/07/GreenSock-Cheatsheet-4.pdf Cheat Sheet
@@ -26,7 +27,7 @@ The 'Lite' and 'Max' distinguish a size vs. feature set tradeoff. Anything Tween
 
 .code -edit -numbers slidecontent/tweensyntax.js
 
-* Easy Skeezy Ease into Eases
+* Ease Property
 
 The ease attribute determines which function to use when changing the attribute from one value to another.
 
@@ -44,7 +45,25 @@ The ease attribute determines which function to use when changing the attribute 
 
 A full set can be found on the [[https://greensock.com/docs/TweenMax][TweenMax documentation]]
 
+* Function based values
+
+.code -edit slidecontent/randomvalue.js
+
+Functions can be applied to values, setting the final value equal to the return value of the function.
+
+Here the value of `x` will be randomized.
+
+* Function based values with multiple targets
+
+.code -edit slidecontent/iterablevalue.js
+
+The `".box"` selector can return multiple elements, and the function will be called per element with `index` and `target` passing the element index of the set and the element itself respectively.
+
+The `x` value will be increased by 100 progressively for each element in the set.
+
 * Tween Methods
+
+Tweens can be stored in a reference that can be used to change the animation.
 
 .code slidecontent/tweenmethods.js
 
@@ -73,3 +92,16 @@ Timelines expose a powerful feature called [[https://greensock.com/position-para
 GSAP offers plenty of [[https://greensock.com/plugins/?product_id=4921][plugins]] for additional functionality. Bezier movement, morph any svg to another svg, physics simulation, scroll position animation, draw svg line over time; plenty of options to do complicated motions wth DOM elements.
 
 They also provide a developer tool [[https://greensock.com/gsdevtools][GSDevTools]] which provides a playground to manipulate timelines.
+
+* Document Coordinates
+
+[[http://javascript.info/coordinates][This site]] offers an excellent breakdown of DOM coordinates and how to find them.
+
+An important take away - coordinates of objects with `getBoundingClientRect()` are relative to the client window, not the entire document.
+
+You can take the `top` of an element and add `pageYOffset` to get it's document top.
+Similarly, `pageXOffset` can be added to the `left` property of an element to get its document left.
+
+* 
+.background slidecontent/coords.png
+
