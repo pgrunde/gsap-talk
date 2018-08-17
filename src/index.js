@@ -11,33 +11,38 @@ $(document).ready(function() {
   'use strict';
 
   // SETUP
-  // this defines which selector engine TweenMax will use to select DOM elements
+  // This defines which selector engine TweenMax will use to select DOM elements
+  // In this case we'll be using jQuery
+  // https://greensock.com/docs/TweenMax/static.selector
   TweenMax.selector = $;
 
-  // we'll be tracking mouse location on the document, so let's set some defaults
+  // We'll be tracking mouse location on the document, so let's set some defaults
+  // We'll be changing these on the mouse move so their start position doesn't really matter
 	document.pointerX = document.documentElement.clientWidth / 2;
 	document.pointerY = document.documentElement.clientHeight / 2;
 	document.lastPointerX = document.pointerX;
 	document.lastPointerY = document.pointerY;
 	document.userScrolling = false;
 
-  // track mouse movement
+  // Track mouse movement 
   document.onmousemove = handleMouseMove;
 	window.onscroll = function() { document.userScrolling = true; };
 
-  // construct initial page layout no matter the client size
+  // Construct initial page layout no matter the client size
   setJustAfter();
-  // every 120ms check the mouse position and perform any animations related
+
+  // Every 120ms check the mouse position and perform any animations related
   setInterval(mouseMoved, 120);
 
-  // set ball animation and call with bound reference to a timeline
+  // Set ball animation and call with bound reference to a timeline
+  // Only start the ball animation when the ball is fully on screen
   var tl_bigball = buildBall();
   $("#bigball").on("click", function() {
     TweenMax.to("#boat", 2, {autoAlpha: 1, ease: Sine.easeIn});
   });
   setInterval(balls.bind(this, tl_bigball), 500);
 
-  // start
+  // Start pageload animation
   setTimeout(beginAnimation, 500)
 });
 
@@ -76,10 +81,11 @@ function mouseMoved() {
 	var mouseDidMove = (document.lastPointerX != document.pointerX || document.lastPointerY != document.pointerY);
 	// somehow the mouse could be in a new place
 	if (mouseDidMove || document.userScrolling) {
-    // mouse reacting content changes
+    // Animate anything that will change based on mouse position
+    // In this case let's move the elastic boxes
 		handleBoxes(document.pointerX, document.pointerY)
 
-    // reset movement indicators
+    // Reset movement indicators
 		document.userScrolling = false;
 		document.lastPointerX = document.pointerX;
 		document.lastPointerY = document.pointerY;
@@ -94,7 +100,7 @@ function handleBoxes(mouseX, mouseY) {
 
     // We cannot rely on just the bounding client rect of the element; it is relative to the client view
     // We need it relative to the whole document, which is what our mouseY and mouseX values keep
-    // As-is this implementation will not use the correct coordinates!
+    // As-is this commented out implementation will not use the correct coordinates!
     // var boxLeftCoords = boxLeft.getBoundingClientRect()
     // var boxRightCoords = boxRight.getBoundingClientRect()
 
@@ -103,12 +109,13 @@ function handleBoxes(mouseX, mouseY) {
     var boxLeftCoords = getCoords(boxLeft);
     var boxRightCoords = getCoords(boxRight);
 
+    // Here we make sure to only call the animation when the mouse position is inside a box
     if (boxRightCoords.doctop < mouseY && boxRightCoords.doctop+boxRightCoords.height > mouseY) {
       var boxWidth = 200;
       TweenMax.to(boxLeft, 5, {width: mouseX - boxWidth, ease: Elastic.easeOut.config(1, 0.3)});
       TweenMax.to(boxRight, 5, {width: document.documentElement.clientWidth - mouseX - boxWidth, ease: Elastic.easeOut.config(1, 0.3)});
 
-      // animate text-shadow
+      // Animate text-shadow
       var h2 = boxLeft.parentElement.children[1];
       var colorPick = {1: "#000000", 2:"#ff0000", 3:"#fff695" , 4:"#ff95a8" , 5:"#95baff"};
       TweenMax.to(h2, 5, {textShadow: "1rem 1rem " + colorPick[i]});
@@ -152,7 +159,7 @@ function buildBall() {
 }
 
 // http://javascript.info/coordinates
-// get document coordinates of an element
+// getCoords attaches full document length coordinates to the boundling client rect of an element
 function getCoords(elem) {
   var box = elem.getBoundingClientRect();
 	var docCords = {
@@ -163,9 +170,9 @@ function getCoords(elem) {
 }
 
 // https://stackoverflow.com/questions/7790725/javascript-track-mouse-position
-// tracks mouse movement on the document
+// Tracks mouse movement on the document
 function handleMouseMove(event) {
-  var dot, eventDoc, doc, body, pageX, pageY;
+  var eventDoc, doc, body, pageX, pageY;
 
   event = event || window.event; // IE-ism
 
